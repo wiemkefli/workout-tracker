@@ -1,8 +1,7 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:workoutamw/screens/active_workout.dart';
 import 'package:workoutamw/screens/history.dart';
+import 'package:workoutamw/screens/home_screen.dart'; // Import the HomeScreen
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key});
@@ -10,6 +9,7 @@ class WorkoutPage extends StatefulWidget {
   static String id = 'workout_page';
 
   @override
+  // ignore: library_private_types_in_public_api
   _WorkoutPageState createState() => _WorkoutPageState();
 }
 
@@ -19,6 +19,18 @@ class _WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Workout'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, HomeScreen.id);
+            },
+          ),
+        ],
+        backgroundColor: Colors.green,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

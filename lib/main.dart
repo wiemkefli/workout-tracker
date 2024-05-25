@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:workoutamw/screens/home_screen.dart';
 import 'package:workoutamw/screens/login_screen.dart';
@@ -15,14 +13,15 @@ import 'package:workoutamw/screens/chest_workout.dart';
 import 'package:workoutamw/screens/leg_workout.dart';
 import 'package:workoutamw/screens/abs_workout.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,6 +32,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
+        HomeScreen.id: (context) => const HomeScreen(), // Add this line
         LoginScreen.id: (context) => const LoginScreen(),
         SignUpScreen.id: (context) => const SignUpScreen(),
         WorkoutPage.id: (context) => const WorkoutPage(),

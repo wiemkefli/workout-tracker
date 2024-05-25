@@ -23,7 +23,6 @@ class HomeScreen extends StatelessWidget {
                       const EdgeInsets.only(right: 15.0, left: 15, bottom: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const ScreenTitle(title: 'Hello'),
                       const Text(
@@ -32,8 +31,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 20,
-                          height: 10
-                          
+                          height: 1.5,
                         ),
                       ),
                       const SizedBox(
@@ -64,8 +62,6 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 25,
                       ),
-                   
-                      
                     ],
                   ),
                 ),

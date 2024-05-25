@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:workoutamw/components/components.dart';
 import 'package:workoutamw/constants.dart';
+import 'package:workoutamw/screens/home_screen.dart'; // Ensure this is correctly imported
 import 'package:workoutamw/screens/workout.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
-        Navigator.popAndPushNamed(context, WorkoutPage.id);
+        Navigator.popAndPushNamed(context, HomeScreen.id); // Navigate to HomeScreen
         return false;
       },
       child: Scaffold(
@@ -86,20 +86,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                 setState(() {
                                   _saving = false;
                                   Navigator.popAndPushNamed(
-                                      context, LoginScreen.id);
+                                      context, WorkoutPage.id);
                                 });
-                                Navigator.pushNamed(context, WorkoutPage.id);
                               }
                             } catch (e) {
+                              setState(() {
+                                _saving = false;
+                              });
                               signUpAlert(
                                 // ignore: use_build_context_synchronously
                                 context: context,
                                 onPressed: () {
-                                  setState(() {
-                                    _saving = false;
-                                  });
-                                  Navigator.popAndPushNamed(
-                                      context, LoginScreen.id);
+                                  Navigator.pop(context);
                                 },
                                 title: 'WRONG PASSWORD OR EMAIL',
                                 desc:

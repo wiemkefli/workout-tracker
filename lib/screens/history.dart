@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:workoutamw/screens/workout.dart';
-
+import 'package:workoutamw/screens/workout_detail.dart'; // Import the new detailed view page
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -78,7 +78,12 @@ class HistoryPage extends StatelessWidget {
                     ? Text('Duration: ${duration.inMinutes} mins ${duration.inSeconds % 60} secs')
                     : const Text('In progress...'),
                 onTap: () {
-                  // Navigate to detailed workout view if needed
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WorkoutDetailPage(workoutId: workout.id),
+                    ),
+                  );
                 },
               );
             },

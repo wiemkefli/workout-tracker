@@ -1,7 +1,4 @@
-// ignore_for_file: deprecated_member_use, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:workoutamw/components/components.dart';
 import 'package:workoutamw/screens/home_screen.dart';
 import 'package:workoutamw/screens/login_screen.dart';
@@ -26,6 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         Navigator.popAndPushNamed(context, HomeScreen.id);
@@ -41,7 +39,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                 // const TopScreenImage(screenImageName: 'signup.png'),
                   Expanded(
                     flex: 2,
                     child: Padding(
@@ -94,22 +91,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                           ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Password must be at least 6 characters long.',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
                           CustomBottomScreen(
                             textButton: 'Sign Up',
                             heroTag: 'signup_btn',
                             question: 'Have an account?',
                             buttonPressed: () async {
                               FocusManager.instance.primaryFocus?.unfocus();
+
+                              if (_email.isEmpty || _password.isEmpty || _confirmPass.isEmpty) {
+                                showAlert(
+                                  context: context,
+                                  title: 'MISSING INFORMATION',
+                                  desc: 'Please fill in all fields',
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ).show();
+                                return;
+                              }
+
                               setState(() {
                                 _saving = true;
                               });
+
                               if (_confirmPass == _password) {
                                 try {
                                   await _auth.createUserWithEmailAndPassword(
-                                      email: _email, password: _password);
+                                    email: _email,
+                                    password: _password,
+                                  );
 
-                                  if (context.mounted) {
+                                  if (mounted) {
                                     signUpAlert(
+                                      // ignore: use_build_context_synchronously
                                       context: context,
                                       title: 'GOOD JOB',
                                       desc: 'Go login now',
@@ -118,32 +142,71 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         setState(() {
                                           _saving = false;
                                           Navigator.popAndPushNamed(
-                                              context, SignUpScreen.id);
+                                            context,
+                                            SignUpScreen.id,
+                                          );
                                         });
-                                        Navigator.pushNamed(
-                                            context, LoginScreen.id);
+                                        if (mounted) {
+                                          Navigator.pushNamed(
+                                            context,
+                                            LoginScreen.id,
+                                          );
+                                        }
                                       },
                                     ).show();
                                   }
                                 } catch (e) {
-                                  signUpAlert(
+                                  setState(() {
+                                    _saving = false;
+                                  });
+
+                                  String errorMessage = 'An error occurred';
+                                  if (e is FirebaseAuthException) {
+                                    switch (e.code) {
+                                      case 'email-already-in-use':
+                                        errorMessage = 'This email is already in use.';
+                                        break;
+                                      case 'invalid-email':
+                                        errorMessage = 'The email address is not valid.';
+                                        break;
+                                      case 'operation-not-allowed':
+                                        errorMessage = 'Operation not allowed. Please contact support.';
+                                        break;
+                                      case 'weak-password':
+                                        errorMessage = 'The password is too weak.';
+                                        break;
+                                      default:
+                                        errorMessage = 'An undefined error occurred.';
+                                    }
+                                  }
+
+                                  if (mounted) {
+                                    signUpAlert(
+                                      // ignore: use_build_context_synchronously
                                       context: context,
                                       onPressed: () {
-                                        SystemNavigator.pop();
+                                        Navigator.pop(context);
                                       },
-                                      title: 'SOMETHING WRONG',
-                                      desc: 'Close the app and try again',
-                                      btnText: 'Close Now');
+                                      title: 'ERROR',
+                                      desc: errorMessage,
+                                      btnText: 'Try Again',
+                                    ).show();
+                                  }
                                 }
                               } else {
-                                showAlert(
+                                setState(() {
+                                  _saving = false;
+                                });
+                                if (mounted) {
+                                  showAlert(
                                     context: context,
                                     title: 'WRONG PASSWORD',
-                                    desc:
-                                        'Make sure that you write the same password twice',
+                                    desc: 'Make sure that you write the same password twice',
                                     onPressed: () {
                                       Navigator.pop(context);
-                                    }).show();
+                                    },
+                                  ).show();
+                                }
                               }
                             },
                             questionPressed: () async {

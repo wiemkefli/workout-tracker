@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:workoutamw/components/components.dart';
 import 'package:workoutamw/constants.dart';
 import 'package:workoutamw/screens/home_screen.dart'; // Ensure this is correctly imported
-import 'package:workoutamw/screens/workout.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:workoutamw/screens/home_after_login.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 setState(() {
                                   _saving = false;
                                   Navigator.popAndPushNamed(
-                                      context, WorkoutPage.id);
+                                      context, HomeAfterLoginPage.id);
                                 });
                               }
                             } catch (e) {

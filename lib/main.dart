@@ -12,6 +12,7 @@ import 'package:workoutamw/screens/exercise_detail.dart';
 import 'package:workoutamw/screens/chest_workout.dart';
 import 'package:workoutamw/screens/leg_workout.dart';
 import 'package:workoutamw/screens/abs_workout.dart';
+import 'package:workoutamw/screens/home_after_login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         WorkoutPage.id: (context) => const WorkoutPage(),
         HistoryPage.id: (context) => const HistoryPage(),
         ActiveWorkoutPage.id: (context) => const ActiveWorkoutPage(),
+        HomeAfterLoginPage.id: (context) => const HomeAfterLoginPage(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == MuscleGroupSelectionPage.id) {

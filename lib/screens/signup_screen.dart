@@ -23,6 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         Navigator.popAndPushNamed(context, HomeScreen.id);
@@ -128,6 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                             if (mounted) {
                               signUpAlert(
+                                // ignore: use_build_context_synchronously
                                 context: context,
                                 title: 'GOOD JOB',
                                 desc: 'Go login now',
@@ -176,6 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                             if (mounted) {
                               signUpAlert(
+                                // ignore: use_build_context_synchronously
                                 context: context,
                                 onPressed: () {
                                   Navigator.pop(context);

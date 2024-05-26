@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
+      debugShowCheckedModeBanner: false, // Remove the debug banner
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),

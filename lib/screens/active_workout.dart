@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:workoutamw/screens/muscle_group_selection.dart';
 import 'package:workoutamw/screens/exercise_detail.dart';
-// Import the WorkoutPage
 
 class ActiveWorkoutPage extends StatefulWidget {
   const ActiveWorkoutPage({super.key});
@@ -86,22 +85,41 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
         return true;
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Active Workout'),
+          backgroundColor: Colors.white,
+          leading: const BackButton(color: Colors.black),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'YOUR WORKOUT',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _formatTime(_seconds),
+                    style: const TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
                   ElevatedButton(
                     onPressed: _endWorkout,
                     style: ElevatedButton.styleFrom(
@@ -117,15 +135,6 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
                     ),
                   ),
                 ],
-              ),
-              const SizedBox(height: 20),
-              Text(
-                _formatTime(_seconds),
-                style: const TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -150,6 +159,7 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
+              const SizedBox(height: 20),
               Expanded(
                 child: StreamBuilder(
                   stream: _workoutRef?.collection('exercises').snapshots(),
@@ -162,19 +172,28 @@ class _ActiveWorkoutPageState extends State<ActiveWorkoutPage> {
                       itemCount: exercises.length,
                       itemBuilder: (context, index) {
                         String exerciseName = exercises[index]['name'];
-                        return ListTile(
-                          title: Text(exerciseName),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ExerciseDetailPage(
-                                  exerciseName: exerciseName,
-                                  workoutId: _workoutRef!.id,
-                                ),
+                        return Card(
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          child: ListTile(
+                            title: Text(
+                              exerciseName,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
-                            );
-                          },
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ExerciseDetailPage(
+                                    exerciseName: exerciseName,
+                                    workoutId: _workoutRef!.id,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         );
                       },
                     );

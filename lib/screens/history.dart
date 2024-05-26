@@ -16,7 +16,7 @@ class HistoryPage extends StatelessWidget {
     if (user == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Workout History'),
+          title: const Text('History'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {

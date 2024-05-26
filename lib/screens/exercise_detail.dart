@@ -26,6 +26,7 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
     await _firestore.collection('workouts/${widget.workoutId}/exercises/${widget.exerciseName}/sets').add({
       'reps': reps,
       'weight': weight,
+      'timestamp': FieldValue.serverTimestamp(), // Add a timestamp field
     });
 
     _repsController.clear();
@@ -60,7 +61,10 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
             const SizedBox(height: 10),
             Expanded(
               child: StreamBuilder(
-                stream: _firestore.collection('workouts/${widget.workoutId}/exercises/${widget.exerciseName}/sets').snapshots(),
+                stream: _firestore
+                    .collection('workouts/${widget.workoutId}/exercises/${widget.exerciseName}/sets')
+                    .orderBy('timestamp') // Order by timestamp
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());

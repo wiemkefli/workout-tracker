@@ -37,14 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  //const TopScreenImage(screenImageName: 'welcome.png'),
                   Expanded(
                     flex: 2,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const ScreenTitle(title: 'Login'),
+                        const SizedBox(height: 20), // Add space between title and text fields
                         CustomTextField(
                           textField: TextField(
                               onChanged: (value) {
@@ -56,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: kTextInputDecoration.copyWith(
                                   hintText: 'Email')),
                         ),
+                        const SizedBox(height: 10), // Reduce space between text fields
                         CustomTextField(
                           textField: TextField(
                             obscureText: true,
@@ -69,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 hintText: 'Password'),
                           ),
                         ),
+                        const SizedBox(height: 20), // Add space before the button
                         CustomBottomScreen(
                           textButton: 'Login',
                           heroTag: 'login_btn',

@@ -46,10 +46,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         horizontal: 15,
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center, // Changed to start
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          const SizedBox(height: 20), // Add some space at the top
                           const ScreenTitle(title: 'Sign Up'),
+                          const SizedBox(height: 20), // Add space between the title and text fields
                           CustomTextField(
                             textField: TextField(
                               onChanged: (value) {
@@ -63,6 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10), // Reduce space between text fields
                           CustomTextField(
                             textField: TextField(
                               obscureText: true,
@@ -77,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10), // Reduce space between text fields
                           CustomTextField(
                             textField: TextField(
                               obscureText: true,
@@ -101,6 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 20), // Add some space before the button
                           CustomBottomScreen(
                             textButton: 'Sign Up',
                             heroTag: 'signup_btn',

@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(25),
           child: Column(
+            
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
@@ -22,6 +23,7 @@ class HomeScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(right: 15.0, left: 15, bottom: 15),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const ScreenTitle(title: 'Hello'),

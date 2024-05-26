@@ -30,20 +30,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
           ),
         ],
         backgroundColor: Colors.green,
+        automaticallyImplyLeading: false, // This removes the back button
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'WORKOUT',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 20), // This replaces the "WORKOUT" text space
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, ActiveWorkoutPage.id);
